@@ -1,15 +1,14 @@
-import configparser
 import os, time
 import pickle
 
-def run():
-    config = configparser.ConfigParser()
-    config.read('config.ini')
+DIR_LISTS = [os.path.normpath(os.path.abspath('../data/fh/train_ben_fh')), os.path.normpath(os.path.abspath('../data/fh/test_ben_fh'))]
+RES_LISTS = [os.path.normpath(os.path.abspath('../data/fh/train_ben.fhs')), os.path.normpath(os.path.abspath('../data/fh/test_ben.fhs'))]
 
+def run():
     print('In-memorable data will generate')
     start_time = time.time()
 
-    for target_dir, target_res in zip(INMEMORY_DIR_LISTS, INMEMORY_RES_LISTS):
+    for target_dir, target_res in zip(DIR_LISTS, RES_LISTS):
         file_data_dicts = dict()
         for path, _, files in os.walk(target_dir):
             for file in files:
