@@ -1,8 +1,5 @@
-# v0.1 pytorch CNN 모델 검증
-
 import numpy as np
 import configparser
-import os
 import pickle
 import torch
 import torch.nn as nn
@@ -79,16 +76,27 @@ class KISnet(nn.Module):
 
 class PEfileDataset(Dataset):
     # initialize data, download, etc.
-    def __init__(self):
+    def __init__(self, train_flag=True):
+        # variable initialization
         self.file_lists, self.label_lists = list(), list()
         self.len = 0
-        with open(config.get('PATH', 'TRAIN_MAL_FHS'), 'rb') as mal_file:
+
+        # decision about train mode or test mode (dataset)
+        if train_flag:
+            self.mal_file_path = config.get('PATH', 'TRAIN_MAL_FHS')
+            self.ben_file_path = config.get('PATH', 'TRAIN_BEN_FHS')
+        else:
+            self.mal_file_path = config.get('PATH', 'TEST_MAL_FHS')
+            self.ben_file_path = config.get('PATH', 'TEST_BEN_FHS')
+
+        # load data,labels from pickle file
+        with open(self.mal_file_path, 'rb') as mal_file:
             self.mal_lists = pickle.load(mal_file)
             for mal in self.mal_lists:
                 self.file_lists.append(torch.Tensor(np.array(mal)).view(1, -1))
             self.label_lists += [1 for _ in self.mal_lists]
             self.len += len(self.mal_lists)
-        with open(config.get('PATH', 'TRAIN_BEN_FHS'), 'rb') as ben_file:
+        with open(self.ben_file_path, 'rb') as ben_file:
             self.ben_lists = pickle.load(ben_file)
             for ben in self.ben_lists:
                 self.file_lists.append(torch.Tensor(np.array(ben)).view(1, -1))
@@ -102,9 +110,10 @@ class PEfileDataset(Dataset):
         return self.len
 
 
-def run():
+def train():
+    # load data
     print('data load start')
-    dataset = PEfileDataset()
+    train_dataset = PEfileDataset(train_flag=True)
     print('data load ended')
 
     # network architecture
@@ -112,8 +121,8 @@ def run():
     cost_function = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=float(config.get('CLASSIFIER', 'LEARNING_RATE')))
 
-    # train
-    train_loader = DataLoader(dataset=dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
+    # model train
+    train_loader = DataLoader(dataset=train_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
                               shuffle=True, num_workers=0)
     for e in range(int(config.get('CLASSIFIER', 'EPOCH'))):
         for batch_idx, train_mini_batch in enumerate(train_loader):
@@ -132,11 +141,56 @@ def run():
             if batch_idx % 100 == 0:
                 print('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f'
                       % (e + 1, int(config.get('CLASSIFIER', 'EPOCH')), batch_idx + 1,
-                         len(dataset) // int(config.get('CLASSIFIER', 'BATCH_SIZE')), loss.data[0]))
+                         len(train_loader.dataset) // int(config.get('CLASSIFIER', 'BATCH_SIZE')), loss.data[0]))
                 torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P'))
     torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P'))
 
     pass
+
+
+def evaluate():
+    # load data
+    print('data load start')
+    test_dataset = PEfileDataset(train_flag=False)
+    print('data load ended')
+
+    # network architecture
+    model = KISnet().cuda()
+    model.load_state_dict(torch.load(config.get('CLASSIFIER', 'MODEL_STORAGE_P')))
+
+    # model evaluate
+    test_loader = DataLoader(dataset=test_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
+                             shuffle=False)
+
+    test_loss = 0
+    correct = 0
+    cost_function = nn.CrossEntropyLoss()
+    for test_mini_batch in test_loader:
+        data, label = test_mini_batch
+
+        x = Variable(data).cuda()
+        y_ = Variable(label).cuda()
+
+        output = model.forward(x)
+
+        # sum up batch loss
+        test_loss += cost_function(output, y_, size_average=False).data[0]
+
+        # get the index of the max log-probability
+        pred = output.data.max(1, keepdim=True)[1]
+        correct += pred.eq(label.data.view_as(pred)).cpu().sum()
+
+    test_loss /= len(test_loader.dataset)
+    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        test_loss, correct, len(test_loader.dataset),
+        100. * correct / len(test_loader.dataset)))
+
+
+def run():
+    # train()
+    evaluate()
+    pass
+
 
 
 if __name__ == '__main__':

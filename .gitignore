@@ -1,3 +1,3 @@
 data/
 src/MODEL_*
-src/*.pkl
+src/*pkl*
