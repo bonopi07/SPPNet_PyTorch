@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e14a69c1-395e-41b4-8521-78b5398ca34a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pytorch_eval.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pytorch_train.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tensorflow_train.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/config.ini" afterPath="$PROJECT_DIR$/src/config.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pytorch_train.py" afterPath="$PROJECT_DIR$/src/pytorch_train.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pytorch_eval.py" afterPath="$PROJECT_DIR$/src/log.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pytorch_train.py" afterPath="$PROJECT_DIR$/src/pytorch_CNN.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,31 +19,23 @@
       <file leaf-file-name="config.ini" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="17" column="16" lean-forward="true" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+            <state relative-caret-position="76">
+              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pytorch_train.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pytorch_train.py">
+      <file leaf-file-name="pytorch_CNN.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-81">
-              <caret line="114" column="11" lean-forward="true" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="11" />
+            <state relative-caret-position="266">
+              <caret line="143" column="41" lean-forward="true" selection-start-line="143" selection-start-column="41" selection-end-line="143" selection-end-column="41" />
               <folding>
-                <element signature="e#26#44#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#317#1732#0" expanded="false" />
+                <element signature="e#1835#4353#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pytorch_eval.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pytorch_eval.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -86,16 +77,17 @@
         <option value="$PROJECT_DIR$/src/confmatrix.py" />
         <option value="$PROJECT_DIR$/src/asdf.py" />
         <option value="$PROJECT_DIR$/src/asdfw.py" />
+        <option value="$PROJECT_DIR$/src/pytorch_eval.py" />
         <option value="$PROJECT_DIR$/src/pytorch_train.py" />
         <option value="$PROJECT_DIR$/src/config.ini" />
-        <option value="$PROJECT_DIR$/src/pytorch_eval.py" />
+        <option value="$PROJECT_DIR$/src/pytorch_CNN.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="-7" />
+    <option name="width" value="814" />
+    <option name="height" value="867" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -149,7 +141,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.pytorch_train">
+  <component name="RunManager" selected="Python.pytorch_CNN">
     <configuration name="asdf" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -184,6 +176,23 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <configuration name="pytorch_CNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="pytorch_prac" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/pytorch_CNN.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="pytorch_prac" type="Python.Ipnb" factoryName="Jupyter Notebook">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -212,24 +221,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="pytorch_prac" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/pytorch_train.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="tensorflow_eval (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="pytorch_prac" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tensorflow_eval.py" />
+      <option name="SCRIPT_NAME" value="D:\working_board\SPPNet_PyTorch\src\pytorch_CNN.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -272,18 +264,18 @@
       <item index="0" class="java.lang.String" itemvalue="Jupyter Notebook.pytorch_prac" />
       <item index="1" class="java.lang.String" itemvalue="Python.tensorflow_eval" />
       <item index="2" class="java.lang.String" itemvalue="Python.tensorflow_train" />
-      <item index="3" class="java.lang.String" itemvalue="Python.tensorflow_eval (1)" />
-      <item index="4" class="java.lang.String" itemvalue="Python.asdf" />
-      <item index="5" class="java.lang.String" itemvalue="Python.pytorch_train" />
-      <item index="6" class="java.lang.String" itemvalue="Python.asdfw" />
+      <item index="3" class="java.lang.String" itemvalue="Python.asdf" />
+      <item index="4" class="java.lang.String" itemvalue="Python.pytorch_train" />
+      <item index="5" class="java.lang.String" itemvalue="Python.asdfw" />
+      <item index="6" class="java.lang.String" itemvalue="Python.pytorch_CNN" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.pytorch_train" />
-        <item index="1" class="java.lang.String" itemvalue="Python.asdfw" />
-        <item index="2" class="java.lang.String" itemvalue="Python.asdf" />
-        <item index="3" class="java.lang.String" itemvalue="Python.tensorflow_train" />
-        <item index="4" class="java.lang.String" itemvalue="Python.tensorflow_eval (1)" />
+        <item index="0" class="java.lang.String" itemvalue="Python.pytorch_CNN" />
+        <item index="1" class="java.lang.String" itemvalue="Python.pytorch_train" />
+        <item index="2" class="java.lang.String" itemvalue="Python.asdfw" />
+        <item index="3" class="java.lang.String" itemvalue="Python.asdf" />
+        <item index="4" class="java.lang.String" itemvalue="Python.tensorflow_train" />
       </list>
     </recent_temporary>
   </component>
@@ -309,15 +301,15 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="-7" y="0" width="814" height="867" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21816283" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26190478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32047158" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39707837" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -350,12 +342,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pytorch_train.py">
+    <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="912">
           <caret line="56" column="91" lean-forward="false" selection-start-line="56" selection-start-column="91" selection-end-line="56" selection-end-column="91" />
           <folding>
-            <element signature="e#26#44#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#317#1732#0" expanded="false" />
+            <element signature="e#1835#4353#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -368,12 +362,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pytorch_train.py">
+    <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1292">
           <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="96" selection-end-column="23" />
           <folding>
-            <element signature="e#26#44#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#317#1732#0" expanded="false" />
+            <element signature="e#1835#4353#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -382,9 +378,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="20" column="39" lean-forward="true" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -477,27 +471,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="17" column="16" lean-forward="true" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pytorch_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-81">
-          <caret line="114" column="11" lean-forward="true" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="11" />
-          <folding>
-            <element signature="e#26#44#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -506,6 +480,34 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="143" column="41" lean-forward="true" selection-start-line="143" selection-start-column="41" selection-end-line="143" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#317#1732#0" expanded="false" />
+            <element signature="e#1835#4353#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
