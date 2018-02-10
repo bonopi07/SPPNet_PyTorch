@@ -1,9 +1,10 @@
-# v1.0 tensorflow CNN 모델 검증
-
-import tensorflow as tf
-import numpy as np
-import os, time, pickle
 import configparser
+import numpy as np
+import os
+import pickle
+import tensorflow as tf
+import time
+
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -29,85 +30,100 @@ def get_mini_batch(mal_lists, ben_lists):
         yield (batch_data_lists, batch_label_lists)
 
 
-def load_data():
-    with open(config.get('PATH', 'TRAIN_MAL_FHS'), 'rb') as mal_file:
-        mal_dicts = pickle.load(mal_file)
-    with open(config.get('PATH', 'TRAIN_BEN_FHS'), 'rb') as ben_file:
-        ben_dicts = pickle.load(ben_file)
+def load_data(train_flag=True):
+    if train_flag:
+        mal_file_path = config.get('PATH', 'TRAIN_MAL_FHS')
+        ben_file_path = config.get('PATH', 'TRAIN_BEN_FHS')
+    else:
+        mal_file_path = config.get('PATH', 'TEST_MAL_FHS')
+        ben_file_path = config.get('PATH', 'TEST_BEN_FHS')
 
-    # return list(mal_dicts.values()), list(ben_dicts.values())  # dict
-    return mal_dicts, ben_dicts
+    file_lists, label_lists = list(), list()
+    with open(mal_file_path, 'rb') as mal_file:
+        contents = pickle.load(mal_file)
+        file_lists += contents
+        label_lists += [np.array([0, 1]) for n in contents]
+    with open(ben_file_path, 'rb') as ben_file:
+        contents = pickle.load(ben_file)
+        file_lists += contents
+        label_lists += [np.array([1, 0]) for n in contents]
+
+    return file_lists, label_lists
 
 
-def initialize():
+def create_model_snapshot(step):
     # create model storage
-    if not tf.gfile.Exists(config.get('CLASSIFIER', 'MODEL_STORAGE')):
-        tf.gfile.MkDir(config.get('CLASSIFIER', 'MODEL_STORAGE'))
+    model_storage = config.get('CLASSIFIER', 'MODEL_STORAGE{}'.format(step))
+    if not tf.gfile.Exists(model_storage):
+        tf.gfile.MkDir(model_storage)
 
-    # load data
-    return load_data()
+    return model_storage
 
 
-def train():
+def put_log(sequence, log):
+    print(sequence)
+    log.append(sequence)
+
+
+def inference(x, prob, train_flag=True):
+    x_image = tf.reshape(x, [-1, int(config.get('CLASSIFIER', 'INPUT_SIZE')), 1, 1])
+
+    conv_layer_1 = tf.layers.conv2d(inputs=x_image, filters=2, kernel_size=[3, 1], padding="same", activation=tf.nn.relu)
+    pool_layer_1 = tf.layers.max_pooling2d(inputs=conv_layer_1, pool_size=[2, 1], padding="valid", strides=2)
+    if train_flag:
+        pool_layer_1 = tf.nn.dropout(pool_layer_1, keep_prob=prob)
+    conv_layer_2 = tf.layers.conv2d(inputs=pool_layer_1, filters=4, kernel_size=[3, 1], padding="same", activation=tf.nn.relu)
+    pool_layer_2 = tf.layers.max_pooling2d(inputs=conv_layer_2, pool_size=[2, 1], padding="valid", strides=2)
+    if train_flag:
+        pool_layer_2 = tf.nn.dropout(pool_layer_2, keep_prob=prob)
+    conv_layer_3 = tf.layers.conv2d(inputs=pool_layer_2, filters=8, kernel_size=[3, 1], padding="same", activation=tf.nn.relu)
+    pool_layer_3 = tf.layers.max_pooling2d(inputs=conv_layer_3, pool_size=[2, 1], padding="valid", strides=2)
+    if train_flag:
+        pool_layer_3 = tf.nn.dropout(pool_layer_3, keep_prob=prob)
+    conv_layer_4 = tf.layers.conv2d(inputs=pool_layer_3, filters=16, kernel_size=[3, 1], padding="same", activation=tf.nn.relu)
+    pool_layer_4 = tf.layers.max_pooling2d(inputs=conv_layer_4, pool_size=[2, 1], padding="valid", strides=2)
+    if train_flag:
+        pool_layer_4 = tf.nn.dropout(pool_layer_4, keep_prob=prob)
+
+    convert_flat = tf.reshape(pool_layer_4, [-1, 768 * 1 * 16])
+
+    dense_layer_1 = tf.layers.dense(inputs=convert_flat, units=4096, activation=tf.nn.relu)
+    if train_flag:
+        dense_layer_1 = tf.nn.dropout(dense_layer_1, prob)
+    dense_layer_2 = tf.layers.dense(inputs=dense_layer_1, units=512, activation=tf.nn.relu)
+    if train_flag:
+        dense_layer_2 = tf.nn.dropout(dense_layer_2, prob)
+    dense_layer_3 = tf.layers.dense(inputs=dense_layer_2, units=64, activation=tf.nn.relu)
+    if train_flag:
+        dense_layer_3 = tf.nn.dropout(dense_layer_3, prob)
+    dense_layer_4 = tf.layers.dense(inputs=dense_layer_3, units=8, activation=tf.nn.relu)
+    if train_flag:
+        dense_layer_4 = tf.nn.dropout(dense_layer_4, prob)
+
+    y_ = tf.layers.dense(inputs=dense_layer_4, units=int(config.get('CLASSIFIER', 'OUTPUT_SIZE')))
+
+    if train_flag:
+        return y_
+    else:
+        return tf.nn.softmax(y_)
+
+
+def train(step):
+    # initialize
+    create_model_snapshot(step)
+    log = list()
+
     print('load data start')
-    mal_lists, ben_lists = initialize()
+    file_lists, label_lists = load_data()
     print('load data finish')
 
     # network architecture
-    prob = tf.placeholder(tf.float32)
-
     x = tf.placeholder(tf.float32, shape=[None, int(config.get('CLASSIFIER', 'INPUT_SIZE'))])
     y = tf.placeholder(tf.float32, shape=[None, int(config.get('CLASSIFIER', 'OUTPUT_SIZE'))])
-    x_image = tf.reshape(x, [-1, int(config.get('CLASSIFIER', 'INPUT_SIZE')), 1, 1])
-
-    conv_layer_1 = tf.layers.conv2d(inputs=x_image, filters=2, kernel_size=[3, 1], padding="same",
-                                    activation=tf.nn.relu)
-    pool_layer_1 = tf.layers.max_pooling2d(inputs=conv_layer_1, pool_size=[2, 1], padding="valid", strides=2)
-    pool_drop_1 = tf.nn.dropout(pool_layer_1, keep_prob=prob)
-    # (12288, 1, 1) -> (6144, 1, 2)
-
-    conv_layer_2 = tf.layers.conv2d(inputs=pool_drop_1, filters=4, kernel_size=[3, 1], padding="same",
-                                    activation=tf.nn.relu)
-    pool_layer_2 = tf.layers.max_pooling2d(inputs=conv_layer_2, pool_size=[2, 1], padding="valid", strides=2)
-    pool_drop_2 = tf.nn.dropout(pool_layer_2, keep_prob=prob)
-    # (6144, 1, 2) -> (3072, 1, 4)
-
-    conv_layer_3 = tf.layers.conv2d(inputs=pool_drop_2, filters=8, kernel_size=[3, 1], padding="same",
-                                    activation=tf.nn.relu)
-    pool_layer_3 = tf.layers.max_pooling2d(inputs=conv_layer_3, pool_size=[2, 1], padding="valid", strides=2)
-    pool_drop_3 = tf.nn.dropout(pool_layer_3, keep_prob=prob)
-    # (3072, 1, 4) -> (1536, 1, 8)
-
-    conv_layer_4 = tf.layers.conv2d(inputs=pool_drop_3, filters=16, kernel_size=[3, 1], padding="same",
-                                    activation=tf.nn.relu)
-    pool_layer_4 = tf.layers.max_pooling2d(inputs=conv_layer_4, pool_size=[2, 1], padding="valid", strides=2)
-    pool_drop_4 = tf.nn.dropout(pool_layer_4, keep_prob=prob)
-    # (1536, 1, 8) -> (768, 1, 16)
-
-    convert_flat = tf.reshape(pool_drop_4, [-1, 768 * 1 * 16])
-    # (768, 1, 16) -> (12288)
-
-    dense_layer_1 = tf.layers.dense(inputs=convert_flat, units=4096, activation=tf.nn.relu)
-    dense_drop_1 = tf.nn.dropout(dense_layer_1, prob)
-    # (12288) -> (4096)
-
-    dense_layer_2 = tf.layers.dense(inputs=dense_drop_1, units=512, activation=tf.nn.relu)
-    dense_drop_2 = tf.nn.dropout(dense_layer_2, prob)
-    # (4096) -> (512)
-
-    dense_layer_3 = tf.layers.dense(inputs=dense_drop_2, units=64, activation=tf.nn.relu)
-    dense_drop_3 = tf.nn.dropout(dense_layer_3, prob)
-    # (512) -> (64)
-
-    dense_layer_4 = tf.layers.dense(inputs=dense_drop_3, units=8, activation=tf.nn.relu)
-    dense_drop_4 = tf.nn.dropout(dense_layer_4, prob)
-    # (64) -> (8)
-
-    y_ = tf.layers.dense(inputs=dense_drop_4, units=int(config.get('CLASSIFIER', 'OUTPUT_SIZE')))
-    # (8) -> (2)
+    prob = tf.placeholder(tf.float32)
 
     # loss function: softmax, cross-entropy
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_, labels=y))
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=inference(x, prob=prob), labels=y))
 
     # optimizer: Adaptive momentum optimizer
     optimizer = tf.train.AdamOptimizer(float(config.get('CLASSIFIER', 'LEARNING_RATE'))).minimize(cost)
@@ -139,7 +155,11 @@ def train():
     pass
 
 
-#  KISnet
+def run():
+    for step in range(1, 11):
+        train(step)
+        evaluate(step)
+
 if __name__ == '__main__':
-    train()
+    run()
     pass

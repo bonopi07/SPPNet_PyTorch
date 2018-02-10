@@ -224,7 +224,7 @@ def evaluate(step):
 
 
 def run():
-    for step in range(1, 20):
+    for step in range(1, 11):
         train(step)
         evaluate(step)
     pass
