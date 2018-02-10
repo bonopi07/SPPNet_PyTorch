@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e14a69c1-395e-41b4-8521-78b5398ca34a" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/20180206_실험결과.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/log.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/config.ini" afterPath="$PROJECT_DIR$/src/config.ini" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pytorch_eval.py" afterPath="$PROJECT_DIR$/src/log.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pytorch_train.py" afterPath="$PROJECT_DIR$/src/pytorch_CNN.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pytorch_CNN.py" afterPath="$PROJECT_DIR$/src/pytorch_CNN.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,8 +19,8 @@
       <file leaf-file-name="config.ini" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="190">
+              <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -29,13 +29,23 @@
       <file leaf-file-name="pytorch_CNN.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="143" column="41" lean-forward="true" selection-start-line="143" selection-start-column="41" selection-end-line="143" selection-end-column="41" />
+            <state relative-caret-position="233">
+              <caret line="231" column="0" lean-forward="true" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#317#1732#0" expanded="false" />
                 <element signature="e#1835#4353#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tensorflow_train.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tensorflow_train.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="637">
+              <caret line="121" column="41" lean-forward="false" selection-start-line="121" selection-start-column="41" selection-end-line="121" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -453,20 +463,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/asdf.py" />
-    <entry file="file://$PROJECT_DIR$/src/tensorflow_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/make_data_in_memorable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/asdfw.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -493,16 +489,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/config.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="190">
+          <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tensorflow_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="121" column="41" lean-forward="false" selection-start-line="121" selection-start-column="41" selection-end-line="121" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/make_data_in_memorable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="143" column="41" lean-forward="true" selection-start-line="143" selection-start-column="41" selection-end-line="143" selection-end-column="41" />
+        <state relative-caret-position="233">
+          <caret line="231" column="0" lean-forward="true" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#317#1732#0" expanded="false" />

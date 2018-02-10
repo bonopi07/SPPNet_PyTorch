@@ -131,12 +131,13 @@ def put_log(sequence, log):
 
 def train(step):
     log = list()
+    put_log('# {}'.format(step), log=log)
 
     # load data
     s_time = time.time()
-    put_log('data load start', log=log)
+    print('data load start')
     train_dataset = PEfileDataset(train_flag=True)
-    put_log('data load ended', log=log)
+    print('data load ended')
     put_log('data loading time: {} seconds'.format(time.time() - s_time), log=log)
 
     # network architecture
@@ -183,9 +184,9 @@ def evaluate(step):
 
     # load data
     s_time = time.time()
-    put_log('data load start', log=log)
+    print('data load start')
     test_dataset = PEfileDataset(train_flag=False)
-    put_log('data load ended', log=log)
+    print('data load ended')
     put_log('data loading time: {} seconds'.format(time.time() - s_time), log=log)
 
     # network architecture
@@ -213,7 +214,7 @@ def evaluate(step):
     put_log('--test ended--', log=log)
     put_log('test time: {} seconds'.format(time.time() - s_time), log=log)
 
-    put_log('\nAccuracy: {}% ({}/{})'.format(float(100. * correct / len(test_loader.dataset)), int(correct),
+    put_log('Accuracy: {}% ({}/{})\n'.format(float(100. * correct / len(test_loader.dataset)), int(correct),
                                            len(test_loader.dataset)), log=log)
 
     with open(config.get('BASIC_INFO', 'LOG_FILE_NAME'), 'a') as f:
@@ -224,7 +225,6 @@ def evaluate(step):
 
 def run():
     for step in range(1, 20):
-        print('#{n}'.format(n=step))
         train(step)
         evaluate(step)
     pass

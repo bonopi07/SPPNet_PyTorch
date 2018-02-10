@@ -1,3 +1,9 @@
+# all data related experiments
 data/
+
+# training model tensor collections
 src/MODEL_*
 src/*pkl*
+
+# testing log file
+src/*log*
