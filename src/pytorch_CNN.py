@@ -140,38 +140,39 @@ def train(step):
     print('data load ended')
     put_log('data loading time: {} seconds'.format(time.time() - s_time), log=log)
 
-    # network architecture
-    model = KISnet().cuda()
-    cost_function = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=float(config.get('CLASSIFIER', 'LEARNING_RATE')))
+    with torch.cuda.device(1):
+        # network architecture
+        model = KISnet().cuda()
+        cost_function = nn.CrossEntropyLoss()
+        optimizer = torch.optim.Adam(model.parameters(), lr=float(config.get('CLASSIFIER', 'LEARNING_RATE')))
 
-    # model train
-    train_loader = DataLoader(dataset=train_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
-                              shuffle=True, num_workers=0)
-    put_log('--train start--', log=log)
-    s_time = time.time()
-    for e in range(int(config.get('CLASSIFIER', 'EPOCH'))):
-        for batch_idx, train_mini_batch in enumerate(train_loader):
-            data, label = train_mini_batch
+        # model train
+        train_loader = DataLoader(dataset=train_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
+                                  shuffle=True, num_workers=0)
+        put_log('--train start--', log=log)
+        s_time = time.time()
+        for e in range(int(config.get('CLASSIFIER', 'EPOCH'))):
+            for batch_idx, train_mini_batch in enumerate(train_loader):
+                data, label = train_mini_batch
 
-            x = Variable(data).cuda()
-            y_ = Variable(label).cuda()
+                x = Variable(data).cuda()
+                y_ = Variable(label).cuda()
 
-            optimizer.zero_grad()
-            output = model.forward(x)
+                optimizer.zero_grad()
+                output = model.forward(x)
 
-            loss = cost_function(output, y_)
-            loss.backward()
-            optimizer.step()
+                loss = cost_function(output, y_)
+                loss.backward()
+                optimizer.step()
 
-            if batch_idx % 100 == 0:
-                put_log('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f'
-                      % (e + 1, int(config.get('CLASSIFIER', 'EPOCH')), batch_idx + 1,
-                         len(train_loader.dataset) // int(config.get('CLASSIFIER', 'BATCH_SIZE')), loss.data[0]), log=log)
-                torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step))
-    torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step))
-    put_log('--train ended--', log=log)
-    put_log('train time: {} seconds'.format(time.time() - s_time), log=log)
+                if batch_idx % 100 == 0:
+                    put_log('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f'
+                          % (e + 1, int(config.get('CLASSIFIER', 'EPOCH')), batch_idx + 1,
+                             len(train_loader.dataset) // int(config.get('CLASSIFIER', 'BATCH_SIZE')), loss.data[0]), log=log)
+                    torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step))
+        torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step))
+        put_log('--train ended--', log=log)
+        put_log('train time: {} seconds'.format(time.time() - s_time), log=log)
 
     with open(config.get('BASIC_INFO', 'LOG_FILE_NAME'), 'a') as f:
         for line in log:
@@ -189,33 +190,34 @@ def evaluate(step):
     print('data load ended')
     put_log('data loading time: {} seconds'.format(time.time() - s_time), log=log)
 
-    # network architecture
-    model = KISnet().cuda()
-    model.load_state_dict(torch.load(config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step)))
+    with torch.cuda.device(1):
+        # network architecture
+        model = KISnet().cuda()
+        model.load_state_dict(torch.load(config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step)))
 
-    # model evaluate
-    test_loader = DataLoader(dataset=test_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
-                             shuffle=False)
+        # model evaluate
+        test_loader = DataLoader(dataset=test_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
+                                 shuffle=False)
 
-    put_log('--test start--', log=log)
-    s_time = time.time()
-    correct = 0
-    for test_mini_batch in test_loader:
-        data, label = test_mini_batch
+        put_log('--test start--', log=log)
+        s_time = time.time()
+        correct = 0
+        for test_mini_batch in test_loader:
+            data, label = test_mini_batch
 
-        x = Variable(data,volatile=True).cuda()
-        y_ = Variable(label).cuda()
+            x = Variable(data,volatile=True).cuda()
+            y_ = Variable(label).cuda()
 
-        output = model.forward(x, train_flag=False)
+            output = model.forward(x, train_flag=False)
 
-        # get the index of the max log-probability
-        pred_label = torch.max(output, 1)[1]
-        correct += (pred_label == y_).sum().float()
-    put_log('--test ended--', log=log)
-    put_log('test time: {} seconds'.format(time.time() - s_time), log=log)
+            # get the index of the max log-probability
+            pred_label = torch.max(output, 1)[1]
+            correct += (pred_label == y_).sum().float()
+        put_log('--test ended--', log=log)
+        put_log('test time: {} seconds'.format(time.time() - s_time), log=log)
 
-    put_log('Accuracy: {}% ({}/{})\n'.format(float(100. * correct / len(test_loader.dataset)), int(correct),
-                                           len(test_loader.dataset)), log=log)
+        put_log('Accuracy: {}% ({}/{})\n'.format(float(100. * correct / len(test_loader.dataset)), int(correct),
+                                               len(test_loader.dataset)), log=log)
 
     with open(config.get('BASIC_INFO', 'LOG_FILE_NAME'), 'a') as f:
         for line in log:
