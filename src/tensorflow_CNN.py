@@ -161,7 +161,7 @@ def train(step, log):
         print('training time : {}'.format(train_time))
         model_saver.save(sess, model_path)
 
-        log += [step, end_loss, load_time, train_time]
+        log += [step, load_time, train_time]
     pass
 
 
