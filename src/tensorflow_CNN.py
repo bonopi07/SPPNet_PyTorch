@@ -212,7 +212,7 @@ def evaluate(step, log):
                 pass
         print('------finish------')
         evaluation_time = time.time() - start_time
-        total_accuracy = acc_cnt / number_of_data
+        total_accuracy = float(100. * (acc_cnt / number_of_data))
         print('test time : {}'.format(evaluation_time))
         print('accuracy : {}'.format(total_accuracy))
 
