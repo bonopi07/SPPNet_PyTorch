@@ -4,7 +4,6 @@ import numpy as np
 import os
 import pickle
 import random
-import sys
 import tensorflow as tf
 import time
 
@@ -34,8 +33,8 @@ def load_data(train_flag=True):
         mal_file_path = config.get('PATH', 'TRAIN_MAL_FHS')
         ben_file_path = config.get('PATH', 'TRAIN_BEN_FHS')
     else:
-        mal_file_path = config.get('PATH', 'TEST_MAL_FHS')
-        ben_file_path = config.get('PATH', 'TEST_BEN_FHS')
+        mal_file_path = config.get('PATH', 'EVAL_MAL_FHS')
+        ben_file_path = config.get('PATH', 'EVAL_BEN_FHS')
 
     file_lists, label_lists = list(), list()
     with open(mal_file_path, 'rb') as mal_file:
@@ -103,6 +102,8 @@ def inference(x, prob=0.0, train_flag=True):
 
 
 def train(step, log):
+    print('# {}'.format(step))
+
     # load data
     print('load data start')
     start_time = time.time()
@@ -134,7 +135,7 @@ def train(step, log):
     model_path = get_model_snapshot_path(step)
 
     # training session start
-    dropout_prob = float(config.get('CLASSIFIER', 'DROPOUT_PROB'))
+    keep_prob = float(1 - float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
     model_saver = tf.train.Saver()
     init = tf.global_variables_initializer()
     train_iter = get_mini_batch(file_lists, label_lists, int(config.get('CLASSIFIER', 'BATCH_SIZE')))
@@ -147,14 +148,14 @@ def train(step, log):
         for i in range(int(config.get('CLASSIFIER', 'ITER'))):
             (training_data, training_label) = next(train_iter)
             if i % 100 == 0:
-                print(i, sess.run(accuracy, feed_dict={x: training_data, y: training_label, prob: dropout_prob}))
+                print(i, sess.run(accuracy, feed_dict={x: training_data, y: training_label, prob: keep_prob}))
                 if i % 1000 == 0:
                     model_saver.save(sess, model_path)
             else:
-                sess.run(optimizer, feed_dict={x: training_data, y: training_label, prob: dropout_prob})
+                sess.run(optimizer, feed_dict={x: training_data, y: training_label, prob: keep_prob})
         else:
             (training_data, training_label) = next(train_iter)
-            end_loss = sess.run(cost, feed_dict={x: training_data, y: training_label, prob: dropout_prob})
+            end_loss = sess.run(cost, feed_dict={x: training_data, y: training_label, prob: keep_prob})
         print('------finish------')
         train_time = time.time() - start_time
         print('training time : {}'.format(train_time))
@@ -220,7 +221,7 @@ def evaluate(step, log):
 
 
 def run():
-    for step in range(1, 11):
+    for step in range(1, 2):
         log = list()
         train(step, log)
         evaluate(step, log)
