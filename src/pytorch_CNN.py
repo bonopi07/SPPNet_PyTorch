@@ -1,5 +1,6 @@
 import numpy as np
 import configparser
+import csv
 import pickle
 import time
 import torch
@@ -24,8 +25,8 @@ class PEfileDataset(Dataset):
             self.mal_file_path = config.get('PATH', 'TRAIN_MAL_FHS')
             self.ben_file_path = config.get('PATH', 'TRAIN_BEN_FHS')
         else:
-            self.mal_file_path = config.get('PATH', 'TEST_MAL_FHS')
-            self.ben_file_path = config.get('PATH', 'TEST_BEN_FHS')
+            self.mal_file_path = config.get('PATH', 'EVAL_MAL_FHS')
+            self.ben_file_path = config.get('PATH', 'EVAL_BEN_FHS')
 
         # load data,labels from pickle file
         with open(self.mal_file_path, 'rb') as mal_file:
@@ -72,21 +73,33 @@ class KISnet(nn.Module):
             nn.ReLU(),
             nn.MaxPool1d(2))
     # fully connected layer
-        self.fc1 = nn.Sequential(
-            nn.Linear(769 * 1 * 16, 4096),
-            nn.ReLU())
-        self.fc2 = nn.Sequential(
-            nn.Linear(4096, 512),
-            nn.ReLU())
-        self.fc3 = nn.Sequential(
-            nn.Linear(512, 64),
-            nn.ReLU())
-        self.fc4 = nn.Sequential(
-            nn.Linear(64, 8),
-            nn.ReLU())
-        self.output = nn.Linear(8, 2)
+        # self.fc1 = nn.init.xavier_uniform(nn.Linear(769 * 1 * 16, 4096).weight)
+        # self.fc1 = nn.Sequential(
+        #     nn.Linear(769 * 1 * 16, 4096),
+        #     nn.ReLU())
+        # self.fc2 = nn.Sequential(
+        #     nn.Linear(4096, 512),
+        #     nn.ReLU())
+        # self.fc3 = nn.Sequential(
+        #     nn.Linear(512, 64),
+        #     nn.ReLU())
+        # self.fc4 = nn.Sequential(
+        #     nn.Linear(64, 8),
+        #     nn.ReLU())
+        self.fc1 = nn.Linear(769 * 1 * 16, 4096, bias=True)
+        nn.init.xavier_uniform(self.fc1.weight)
+        self.fc2 = nn.Linear(4096, 512, bias=True)
+        nn.init.xavier_uniform(self.fc2.weight)
+        self.fc3 = nn.Linear(512, 64, bias=True)
+        nn.init.xavier_uniform(self.fc3.weight)
+        self.fc4 = nn.Linear(64, 8, bias=True)
+        nn.init.xavier_uniform(self.fc4.weight)
+
+        self.output = nn.Linear(8, 2, bias=True)
+        nn.init.xavier_uniform(self.output.weight)
 
     def forward(self, x, train_flag=True):
+        # convolutional layer
         out = self.layer1(x)
         if train_flag:
             out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
@@ -102,16 +115,21 @@ class KISnet(nn.Module):
 
         out = out.view(-1, 1 * 16 * 769)  # why 769? I think 768
 
+        # fully connected layer
         out = self.fc1(out)
+        out = F.relu(out)
         if train_flag:
             out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
         out = self.fc2(out)
+        out = F.relu(out)
         if train_flag:
             out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
         out = self.fc3(out)
+        out = F.relu(out)
         if train_flag:
             out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
         out = self.fc4(out)
+        out = F.relu(out)
         if train_flag:
             out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
         out = self.output(out)
@@ -124,21 +142,16 @@ class KISnet(nn.Module):
         return result
 
 
-def put_log(sequence, log):
-    print(sequence)
-    log.append(sequence + '\n')
-
-
-def train(step):
-    log = list()
-    put_log('# {}'.format(step), log=log)
+def train(step, log):
+    print('# {}'.format(step))
 
     # load data
-    s_time = time.time()
+    start_time = time.time()
     print('data load start')
     train_dataset = PEfileDataset(train_flag=True)
+    load_time = time.time() - start_time
     print('data load ended')
-    put_log('data loading time: {} seconds'.format(time.time() - s_time), log=log)
+    print('data loading time: {} seconds'.format(load_time))
 
     with torch.cuda.device(1):
         # network architecture
@@ -147,11 +160,13 @@ def train(step):
         optimizer = torch.optim.Adam(model.parameters(), lr=float(config.get('CLASSIFIER', 'LEARNING_RATE')))
 
         # model train
-        train_loader = DataLoader(dataset=train_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
-                                  shuffle=True, num_workers=0)
-        put_log('--train start--', log=log)
-        s_time = time.time()
-        for e in range(int(config.get('CLASSIFIER', 'EPOCH'))):
+        batch_size = int(config.get('CLASSIFIER', 'BATCH_SIZE'))
+        train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+        print('--train start--')
+        epoch = int(config.get('CLASSIFIER', 'EPOCH'))
+        model_path = config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step)
+        start_time = time.time()
+        for e in range(epoch):
             for batch_idx, train_mini_batch in enumerate(train_loader):
                 data, label = train_mini_batch
 
@@ -166,29 +181,26 @@ def train(step):
                 optimizer.step()
 
                 if batch_idx % 100 == 0:
-                    put_log('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f'
-                          % (e + 1, int(config.get('CLASSIFIER', 'EPOCH')), batch_idx + 1,
-                             len(train_loader.dataset) // int(config.get('CLASSIFIER', 'BATCH_SIZE')), loss.data[0]), log=log)
-                    torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step))
-        torch.save(model.state_dict(), config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step))
-        put_log('--train ended--', log=log)
-        put_log('train time: {} seconds'.format(time.time() - s_time), log=log)
+                    print('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f' % (
+                    e + 1, epoch, batch_idx + 1, len(train_loader.dataset) // batch_size, loss.data[0]))
+                    torch.save(model.state_dict(), model_path)
+        torch.save(model.state_dict(), model_path)
+        print('--train ended--')
+        train_time = time.time() - start_time
+        print('train time: {} seconds'.format(train_time))
 
-    with open(config.get('BASIC_INFO', 'LOG_FILE_NAME'), 'a') as f:
-        for line in log:
-            f.write(line)
+    log += [step, load_time, train_time]
     pass
 
 
-def evaluate(step):
-    log = list()
-
+def evaluate(step, log):
     # load data
-    s_time = time.time()
+    start_time = time.time()
     print('data load start')
     test_dataset = PEfileDataset(train_flag=False)
+    load_time = time.time() - start_time
     print('data load ended')
-    put_log('data loading time: {} seconds'.format(time.time() - s_time), log=log)
+    print('data loading time: {} seconds'.format(load_time))
 
     with torch.cuda.device(1):
         # network architecture
@@ -199,8 +211,8 @@ def evaluate(step):
         test_loader = DataLoader(dataset=test_dataset, batch_size=int(config.get('CLASSIFIER', 'BATCH_SIZE')),
                                  shuffle=False)
 
-        put_log('--test start--', log=log)
-        s_time = time.time()
+        print('--test start--')
+        start_time = time.time()
         correct = 0
         for test_mini_batch in test_loader:
             data, label = test_mini_batch
@@ -213,22 +225,24 @@ def evaluate(step):
             # get the index of the max log-probability
             pred_label = torch.max(output, 1)[1]
             correct += (pred_label == y_).sum().float()
-        put_log('--test ended--', log=log)
-        put_log('test time: {} seconds'.format(time.time() - s_time), log=log)
+        print('--test ended--')
+        evaluation_time = time.time() - start_time
+        total_accuracy = float(100. * correct / len(test_loader.dataset))
+        print('test time: {} seconds'.format(evaluation_time))
+        print('Accuracy: {}% ({}/{})\n'.format(total_accuracy, int(correct), len(test_loader.dataset)))
 
-        put_log('Accuracy: {}% ({}/{})\n'.format(float(100. * correct / len(test_loader.dataset)), int(correct),
-                                               len(test_loader.dataset)), log=log)
-
-    with open(config.get('BASIC_INFO', 'LOG_FILE_NAME'), 'a') as f:
-        for line in log:
-            f.write(line)
+    log += [load_time, evaluation_time, total_accuracy]
     pass
 
 
 def run():
-    for step in range(1, 11):
-        train(step)
-        evaluate(step)
+    for step in range(1, 2):
+        log = list()
+        train(step, log)
+        evaluate(step, log)
+        with open(config.get('BASIC_INFO', 'TORCH_LOG_FILE_NAME'), 'a', encoding='utf-8', newline='') as f:
+            wr = csv.writer(f)
+            wr.writerow(log)
     pass
 
 
