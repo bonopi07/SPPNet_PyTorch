@@ -1,8 +1,8 @@
 import os, time
 import pickle
 
-DIR_LISTS = [os.path.normpath(os.path.abspath('../data/fh/train_ben_fh')), os.path.normpath(os.path.abspath('../data/fh/test_ben_fh'))]
-RES_LISTS = [os.path.normpath(os.path.abspath('../data/fh/train_ben.fhs')), os.path.normpath(os.path.abspath('../data/fh/test_ben.fhs'))]
+DIR_LISTS = [os.path.normpath(os.path.abspath('../data/fh/train_mal')), os.path.normpath(os.path.abspath('../data/fh/train_ben')), os.path.normpath(os.path.abspath('../data/fh/eval_mal')), os.path.normpath(os.path.abspath('../data/fh/eval_ben'))]
+RES_LISTS = [os.path.normpath(os.path.abspath('../data/fh/train_mal.fhs')), os.path.normpath(os.path.abspath('../data/fh/train_ben.fhs')), os.path.normpath(os.path.abspath('../data/fh/eval_mal.fhs')), os.path.normpath(os.path.abspath('../data/fh/eval_ben.fhs'))]
 
 def run():
     print('In-memorable data will generate')
@@ -19,7 +19,7 @@ def run():
         print('{target} file count: {cnt}'.format(target=target_dir, cnt=len(file_data_dicts)))
 
         with open(target_res, 'wb') as f:
-            pickle.dump(file_data_dicts, f)
+            pickle.dump(list(file_data_dicts.values()), f)  # return list
 
     print('In-memorable data generated : {}'.format(time.time() - start_time))
     pass
