@@ -73,18 +73,8 @@ class KISnet(nn.Module):
             nn.ReLU(),
             nn.MaxPool1d(2))
     # fully connected layer
-        # self.fc1 = nn.init.xavier_uniform(nn.Linear(769 * 1 * 16, 4096).weight)
         # self.fc1 = nn.Sequential(
         #     nn.Linear(769 * 1 * 16, 4096),
-        #     nn.ReLU())
-        # self.fc2 = nn.Sequential(
-        #     nn.Linear(4096, 512),
-        #     nn.ReLU())
-        # self.fc3 = nn.Sequential(
-        #     nn.Linear(512, 64),
-        #     nn.ReLU())
-        # self.fc4 = nn.Sequential(
-        #     nn.Linear(64, 8),
         #     nn.ReLU())
         self.fc1 = nn.Linear(769 * 1 * 16, 4096, bias=True)
         nn.init.xavier_uniform(self.fc1.weight)

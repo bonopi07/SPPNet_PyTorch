@@ -9,6 +9,8 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, Dataset
 from torch.autograd import Variable
 
+from spp_layer import get_spp_layer
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
@@ -72,65 +74,46 @@ class KISnet(nn.Module):
             nn.Conv1d(8, 16, kernel_size=3, padding=1),
             nn.ReLU())
     # fully connected layer
-        # self.fc1 = nn.init.xavier_uniform(nn.Linear(769 * 1 * 16, 4096).weight)
-        # self.fc1 = nn.Sequential(
-        #     nn.Linear(769 * 1 * 16, 4096),
-        #     nn.ReLU())
-        # self.fc2 = nn.Sequential(
-        #     nn.Linear(4096, 512),
-        #     nn.ReLU())
-        # self.fc3 = nn.Sequential(
-        #     nn.Linear(512, 64),
-        #     nn.ReLU())
-        # self.fc4 = nn.Sequential(
-        #     nn.Linear(64, 8),
-        #     nn.ReLU())
-        self.fc1 = nn.Linear(769 * 1 * 16, 4096, bias=True)
+        self.fc1 = nn.Linear(16 * int(config.get('CLASSIFIER', 'SPP_LEVEL_SUM')), 64, bias=True)
         nn.init.xavier_uniform(self.fc1.weight)
-        self.fc2 = nn.Linear(4096, 512, bias=True)
+        self.fc2 = nn.Linear(64, 32, bias=True)
         nn.init.xavier_uniform(self.fc2.weight)
-        self.fc3 = nn.Linear(512, 64, bias=True)
+        self.fc3 = nn.Linear(32, 8, bias=True)
         nn.init.xavier_uniform(self.fc3.weight)
-        self.fc4 = nn.Linear(64, 8, bias=True)
-        nn.init.xavier_uniform(self.fc4.weight)
-
         self.output = nn.Linear(8, 2, bias=True)
         nn.init.xavier_uniform(self.output.weight)
 
     def forward(self, x, train_flag=True):
+        drop_prob = float(config.get('CLASSIFIER', 'DROPOUT_PROB'))
         # convolutional layer
         out = self.layer1(x)
         if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
+            out = F.dropout(out, p=drop_prob)
         out = self.layer2(out)
         if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
+            out = F.dropout(out, p=drop_prob)
         out = self.layer3(out)
         if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
+            out = F.dropout(out, p=drop_prob)
         out = self.layer4(out)
+        out = get_spp_layer(out, list(out.size()), int(config.get('CLASSIFIER', 'SPP_LEVEL')))
         if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
-
-        out = out.view(-1, 1 * 16 * 769)  # why 769? I think 768
+            out = F.dropout(out, p=drop_prob)
 
         # fully connected layer
         out = self.fc1(out)
         out = F.relu(out)
         if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
+            out = F.dropout(out, p=drop_prob)
         out = self.fc2(out)
         out = F.relu(out)
         if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
+            out = F.dropout(out, p=drop_prob)
         out = self.fc3(out)
         out = F.relu(out)
         if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
-        out = self.fc4(out)
-        out = F.relu(out)
-        if train_flag:
-            out = F.dropout(out, p=float(config.get('CLASSIFIER', 'DROPOUT_PROB')))
+            out = F.dropout(out, p=drop_prob)
+
         out = self.output(out)
 
         if train_flag:
@@ -152,7 +135,7 @@ def train(step, log):
     print('data load ended')
     print('data loading time: {} seconds'.format(load_time))
 
-    with torch.cuda.device(1):
+    with torch.cuda.device(int(config.get('CLASSIFIER', 'GPU_NUM'))):
         # network architecture
         model = KISnet().cuda()
         cost_function = nn.CrossEntropyLoss()
@@ -180,7 +163,7 @@ def train(step, log):
                 optimizer.step()
 
                 if batch_idx % 100 == 0:
-                    print('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f' % (
+                    print('Epoch [%d/%d], Iter [%d/%d] Loss: %.3f' % (
                     e + 1, epoch, batch_idx + 1, len(train_loader.dataset) // batch_size, loss.data[0]))
                     torch.save(model.state_dict(), model_path)
         torch.save(model.state_dict(), model_path)
@@ -201,7 +184,7 @@ def evaluate(step, log):
     print('data load ended')
     print('data loading time: {} seconds'.format(load_time))
 
-    with torch.cuda.device(1):
+    with torch.cuda.device(int(config.get('CLASSIFIER', 'GPU_NUM'))):
         # network architecture
         model = KISnet().cuda()
         model.load_state_dict(torch.load(config.get('CLASSIFIER', 'MODEL_STORAGE_P')+str(step)))
@@ -235,7 +218,7 @@ def evaluate(step, log):
 
 
 def run():
-    for step in range(1, 2):
+    for step in range(1, 3):
         log = list()
         train(step, log)
         evaluate(step, log)

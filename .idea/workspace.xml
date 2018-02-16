@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e14a69c1-395e-41b4-8521-78b5398ca34a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/KISnet.py" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/doc/20180210_패키지별_CNN_실험결과.xlsx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/pytorch_prac.iml" afterPath="$PROJECT_DIR$/.idea/pytorch_prac.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/config.ini" afterPath="$PROJECT_DIR$/src/config.ini" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/make_data_in_memorable.py" afterPath="$PROJECT_DIR$/src/make_data_in_memorable.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pytorch_CNN.py" afterPath="$PROJECT_DIR$/src/pytorch_CNN.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tensorflow_CNN.py" afterPath="$PROJECT_DIR$/src/tensorflow_CNN.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,32 +21,33 @@
       <file leaf-file-name="config.ini" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+            <state relative-caret-position="300">
+              <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pytorch_CNN.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
+      <file leaf-file-name="KISnet.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/KISnet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1871">
-              <caret line="236" column="0" lean-forward="false" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+            <state relative-caret-position="-2255">
+              <caret line="98" column="30" lean-forward="true" selection-start-line="98" selection-start-column="30" selection-end-line="98" selection-end-column="30" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#365#1780#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tensorflow_CNN.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tensorflow_CNN.py">
+      <file leaf-file-name="spp_layer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/spp_layer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-96">
-              <caret line="154" column="53" lean-forward="false" selection-start-line="154" selection-start-column="53" selection-end-line="154" selection-end-column="53" />
+            <state relative-caret-position="180">
+              <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
               <folding>
-                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,6 +66,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>drop</find>
+      <find>input</find>
+      <find>device</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -92,20 +93,25 @@
         <option value="$PROJECT_DIR$/src/pytorch_train.py" />
         <option value="$PROJECT_DIR$/src/tensorflow_eval.py" />
         <option value="$PROJECT_DIR$/src/tensorflow_train.py" />
-        <option value="$PROJECT_DIR$/src/make_data_in_memorable.py" />
-        <option value="$PROJECT_DIR$/src/config.ini" />
-        <option value="$PROJECT_DIR$/src/tensorflow_CNN.py" />
         <option value="$PROJECT_DIR$/src/data-01-test-score.csv" />
         <option value="$PROJECT_DIR$/src/asdawdsa.py" />
+        <option value="$PROJECT_DIR$/src/tensorflow_CNN.py" />
+        <option value="$PROJECT_DIR$/src/testest.py" />
+        <option value="$PROJECT_DIR$/src/a.txt" />
+        <option value="$PROJECT_DIR$/src/pytorch_SPPNet.py" />
         <option value="$PROJECT_DIR$/src/pytorch_CNN.py" />
+        <option value="$PROJECT_DIR$/src/make_data_in_memorable.py" />
+        <option value="$PROJECT_DIR$/src/config.ini" />
+        <option value="$PROJECT_DIR$/src/KISnet.py" />
+        <option value="$PROJECT_DIR$/src/spp_layer.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-1024" />
-    <option name="y" value="33" />
-    <option name="width" value="974" />
-    <option name="height" value="567" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="505" />
+    <option name="y" value="495" />
+    <option name="width" value="734" />
+    <option name="height" value="372" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -144,8 +150,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="C:/ida" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -159,8 +165,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.pytorch_CNN">
-    <configuration name="asdawdsa" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.KISnet">
+    <configuration name="KISnet" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -172,24 +178,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="pytorch_prac" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/asdawdsa.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="make_data_in_memorable" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="pytorch_prac" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/make_data_in_memorable.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/KISnet.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -211,6 +200,23 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <configuration name="pytorch_SPPNet" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="pytorch_prac" />
+      <option name="SCRIPT_NAME" value="D:\working_board\SPPNet_PyTorch\src\KISnet.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="pytorch_prac" type="Python.Ipnb" factoryName="Jupyter Notebook">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -227,7 +233,7 @@
       <option name="ipnbHost" value="127.0.0.1" />
       <option name="ipnbPort" value="8888" />
     </configuration>
-    <configuration name="tensorflow_CNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="spp_layer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -239,7 +245,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="pytorch_prac" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tensorflow_CNN.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/spp_layer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -261,7 +267,7 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="tensorflow_train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="testest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -273,7 +279,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="pytorch_prac" />
-      <option name="SCRIPT_NAME" value="D:\working_board\SPPNet_PyTorch\src\tensorflow_CNN.py" />
+      <option name="SCRIPT_NAME" value="D:\working_board\SPPNet_PyTorch\src\spp_layer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -281,19 +287,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Jupyter Notebook.pytorch_prac" />
       <item index="1" class="java.lang.String" itemvalue="Python.tensorflow_eval" />
-      <item index="2" class="java.lang.String" itemvalue="Python.tensorflow_train" />
-      <item index="3" class="java.lang.String" itemvalue="Python.pytorch_CNN" />
-      <item index="4" class="java.lang.String" itemvalue="Python.tensorflow_CNN" />
-      <item index="5" class="java.lang.String" itemvalue="Python.make_data_in_memorable" />
-      <item index="6" class="java.lang.String" itemvalue="Python.asdawdsa" />
+      <item index="2" class="java.lang.String" itemvalue="Python.pytorch_CNN" />
+      <item index="3" class="java.lang.String" itemvalue="Python.testest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.pytorch_SPPNet" />
+      <item index="5" class="java.lang.String" itemvalue="Python.KISnet" />
+      <item index="6" class="java.lang.String" itemvalue="Python.spp_layer" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.pytorch_CNN" />
-        <item index="1" class="java.lang.String" itemvalue="Python.tensorflow_CNN" />
-        <item index="2" class="java.lang.String" itemvalue="Python.asdawdsa" />
-        <item index="3" class="java.lang.String" itemvalue="Python.make_data_in_memorable" />
-        <item index="4" class="java.lang.String" itemvalue="Python.tensorflow_train" />
+        <item index="0" class="java.lang.String" itemvalue="Python.KISnet" />
+        <item index="1" class="java.lang.String" itemvalue="Python.spp_layer" />
+        <item index="2" class="java.lang.String" itemvalue="Python.pytorch_SPPNet" />
+        <item index="3" class="java.lang.String" itemvalue="Python.testest" />
+        <item index="4" class="java.lang.String" itemvalue="Python.pytorch_CNN" />
       </list>
     </recent_temporary>
   </component>
@@ -319,18 +325,18 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1024" y="33" width="974" height="567" extended-state="0" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21816283" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43046358" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21916011" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39895013" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -338,6 +344,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -351,28 +358,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/tensorflow_CNN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="109" column="0" lean-forward="true" selection-start-line="108" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="53" lean-forward="false" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="56" column="91" lean-forward="false" selection-start-line="56" selection-start-column="91" selection-end-line="56" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/config.ini">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -457,14 +442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/make_data_in_memorable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/torch/nn/modules/module.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -473,46 +450,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data-01-test-score.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="15" lean-forward="true" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/asdawdsa.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data-01-test-score.csv" />
+    <entry file="file://$PROJECT_DIR$/src/asdawdsa.py" />
     <entry file="file://$PROJECT_DIR$/src/tensorflow_CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-96">
-          <caret line="154" column="53" lean-forward="false" selection-start-line="154" selection-start-column="53" selection-end-line="154" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1045">
+          <caret line="214" column="65" lean-forward="false" selection-start-line="214" selection-start-column="65" selection-end-line="214" selection-end-column="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.ini">
+    <entry file="file://$PROJECT_DIR$/src/a.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+        <state relative-caret-position="0">
+          <caret line="0" column="32" lean-forward="false" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/make_data_in_memorable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="18" column="49" lean-forward="false" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pytorch_CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1871">
-          <caret line="236" column="0" lean-forward="false" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+        <state relative-caret-position="409">
+          <caret line="87" column="48" lean-forward="true" selection-start-line="87" selection-start-column="48" selection-end-line="87" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/spp_layer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KISnet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2255">
+          <caret line="98" column="30" lean-forward="true" selection-start-line="98" selection-start-column="30" selection-end-line="98" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#365#1780#0" expanded="false" />
           </folding>
         </state>
       </provider>
