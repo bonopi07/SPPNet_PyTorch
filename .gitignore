@@ -1,5 +1,6 @@
 # all data related experiments
 data/
+.idea/*
 
 # training model tensor collections
 src/MODEL_*
