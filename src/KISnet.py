@@ -74,12 +74,14 @@ class KISnet(nn.Module):
             nn.Conv1d(8, 16, kernel_size=3, padding=1),
             nn.ReLU())
     # fully connected layer
-        self.fc1 = nn.Linear(16 * int(config.get('CLASSIFIER', 'SPP_LEVEL_SUM')), 64, bias=True)
+        self.fc1 = nn.Linear(16 * int(config.get('CLASSIFIER', 'SPP_LEVEL_SUM')), 4096, bias=True)
         nn.init.xavier_uniform(self.fc1.weight)
-        self.fc2 = nn.Linear(64, 32, bias=True)
+        self.fc2 = nn.Linear(4096, 512, bias=True)
         nn.init.xavier_uniform(self.fc2.weight)
-        self.fc3 = nn.Linear(32, 8, bias=True)
+        self.fc3 = nn.Linear(512, 64, bias=True)
         nn.init.xavier_uniform(self.fc3.weight)
+        self.fc4 = nn.Linear(64, 8, bias=True)
+        nn.init.xavier_uniform(self.fc4.weight)
         self.output = nn.Linear(8, 2, bias=True)
         nn.init.xavier_uniform(self.output.weight)
 
@@ -110,6 +112,10 @@ class KISnet(nn.Module):
         if train_flag:
             out = F.dropout(out, p=drop_prob)
         out = self.fc3(out)
+        out = F.relu(out)
+        if train_flag:
+            out = F.dropout(out, p=drop_prob)
+        out = self.fc4(out)
         out = F.relu(out)
         if train_flag:
             out = F.dropout(out, p=drop_prob)
@@ -218,7 +224,7 @@ def evaluate(step, log):
 
 
 def run():
-    for step in range(1, 3):
+    for step in range(1, 4):
         log = list()
         train(step, log)
         evaluate(step, log)
